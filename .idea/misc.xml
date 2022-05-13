@@ -3,7 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/ezeki/AndroidStudioProjects/gross-calculator/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/ezeki/AndroidStudioProjects/gross-calculator/app/src/main/res/drawable/bg_edit_text.xml" value="0.1345" />
+        <entry key="..\:/Users/ezeki/AndroidStudioProjects/gross-calculator/app/src/main/res/drawable/bg_rounded_corners_primary.xml" value="0.1345" />
+        <entry key="..\:/Users/ezeki/AndroidStudioProjects/gross-calculator/app/src/main/res/drawable/bg_rounded_corners_white_outline.xml" value="0.1345" />
+        <entry key="..\:/Users/ezeki/AndroidStudioProjects/gross-calculator/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/ezeki/AndroidStudioProjects/gross-calculator/app/src/main/res/layout/blank_fragment.xml" value="0.209375" />
+        <entry key="..\:/Users/ezeki/AndroidStudioProjects/gross-calculator/app/src/main/res/layout/fragment_my_bottom_sheet.xml" value="0.1" />
+        <entry key="..\:/Users/ezeki/AndroidStudioProjects/gross-calculator/app/src/main/res/layout/partial_primary_button.xml" value="0.209375" />
       </map>
     </option>
   </component>

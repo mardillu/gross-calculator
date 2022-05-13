@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Gross Calculator</string>
+    <string name="net_salary">Net salary</string>
+    <string name="ghs">GHS</string>
+    <string name="lunch_allowance">Lunch Allowance (/month)</string>
+    <string name="transportation_allowance">Transportation Allowance (/month)</string>
+    <string name="housing_allowance_month">Housing Allowance (/month)</string>
+    <string name="calculate">Calculate</string>
+    <string name="invalid_input">Invalid input</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
