@@ -1,21 +1,20 @@
 package com.mardillu.grosscalculator
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.deishelon.roundedbottomsheet.RoundedBottomSheetDialog
 import com.mardillu.grosscalculator.databinding.ActivityMainBinding
+import com.mardillu.grosscalculator.databinding.DialogResultDataBinding
 import com.mardillu.grosscalculator.model.Income
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
-    private var bttomSheetDialog: MyBottomSheet? = null
+    private var bottomSheet: RoundedBottomSheetDialog? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-
+        viewModel._income.value = Income()
 
         binding.apply {
             included.proceedBtn.setOnClickListener {
@@ -48,12 +47,19 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 val basic = viewModel.calculateBasicSalary(netValueEdit.text.toString().toDouble())
+                val allowance = viewModel.calculateAllowances(
+                        transportationAllowEdit.text.toString().toDouble(),
+                        lunchAllowEdit.text.toString().toDouble(),
+                        housingAllowEdit.text.toString().toDouble(),
+                )
                 val gross = viewModel.getGrossSalary(
                         basic,
-                        transportationAllowEdit.text.toString().toDouble(),
-                        housingAllowEdit.text.toString().toDouble(),
-                        lunchAllowEdit.text.toString().toDouble(),
+                        allowance,
                 )
+                val pension = viewModel.calculatePensionValue(gross)
+                val taxableIncome = viewModel.calculateTaxableIncome(gross, pension)
+                val tax = viewModel.calculateTax(taxableIncome)
+                showData()
             }
         }
 
@@ -65,7 +71,22 @@ class MainActivity : AppCompatActivity() {
         viewModel._income.observe(this, nameObserver)
     }
 
-    fun showData(){
-        //bttomSheetDialog = MyBottomSheet.newInstance(null)
+    private fun showData(){
+        val view = DialogResultDataBinding.inflate(layoutInflater)
+        bottomSheet = RoundedBottomSheetDialog(this)
+        bottomSheet!!.setContentView(view.root)
+
+        view.basicSalaryText.text = getString(R.string.currency_format, viewModel._income.value?.basicIncome)
+        view.netSalaryText.text = getString(R.string.currency_format, binding.netValueEdit.text.toString().toDouble())
+        view.grossSalaryText.text = getString(R.string.currency_format, viewModel._income.value?.grossIncome)
+        view.payeText.text = getString(R.string.currency_format, viewModel._income.value?.tax)
+        view.employeePensionText.text = getString(R.string.currency_format, viewModel._income.value?.employeePension)
+        view.employerPensionText.text = getString(R.string.currency_format, viewModel._income.value?.employerPension)
+        view.totalAllowanceText.text = getString(R.string.currency_format, viewModel._income.value?.totalAllowance)
+        view.totalPensionText.text = getString(R.string.currency_format, viewModel._income.value?.pension)
+
+
+        view.close.setOnClickListener { bottomSheet!!.dismiss() }
+        bottomSheet!!.show()
     }
 }

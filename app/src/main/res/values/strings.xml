@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Gross Calculator</string>
+    <string name="app_name">Gross Salary Calculator</string>
     <string name="net_salary">Net salary</string>
     <string name="ghs">GHS</string>
     <string name="lunch_allowance">Lunch Allowance (/month)</string>
@@ -7,6 +7,15 @@
     <string name="housing_allowance_month">Housing Allowance (/month)</string>
     <string name="calculate">Calculate</string>
     <string name="invalid_input">Invalid input</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ghs_0_00">GHS 0.00</string>
+    <string name="salary_breakdown">Salary Breakdown</string>
+    <string name="gross_salary">Gross Salary</string>
+    <string name="basic_salary">Basic Salary</string>
+    <string name="employer_pension">Employer Pension</string>
+    <string name="employee_pension">Employee Pension</string>
+    <string name="paye">PAYE</string>
+    <string name="total_allowance">Total Allowance</string>
+
+    <string name="currency_format">GHS %1$,.2f</string>
+    <string name="total_pension_amount">Total Pension Amount</string>
 </resources>

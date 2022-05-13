@@ -8,12 +8,15 @@ import java.io.Serializable
  */
 data class Income(
         var grossIncome: Double = 0.0,
-        val tax: Double = 0.0,
-        val net: Double = 0.0,
-        val allowances: List<Allowance> = listOf(),
+        var tax: Double = 0.0,
+        var net: Double = 0.0,
+        var allowances: List<Allowance> = listOf(),
+        var totalAllowance: Double = 0.0,
         var basicIncome: Double = 0.0,
-        val pension: Double = 0.0,
-        val taxableIncome: Double = 0.0,
+        var pension: Double = 0.0,
+        var employerPension: Double = 0.0,
+        var employeePension: Double = 0.0,
+        var taxableIncome: Double = 0.0,
 ): Serializable
 
 data class Allowance(
