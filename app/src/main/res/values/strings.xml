@@ -7,7 +7,7 @@
     <string name="housing_allowance_month">Housing Allowance (/month)</string>
     <string name="calculate">Calculate</string>
     <string name="invalid_input">Invalid input</string>
-    <string name="ghs_0_00">GHS 0.00</string>
+    <string name="ghs_0_00">"GHS 0.00"</string>
     <string name="salary_breakdown">Salary Breakdown</string>
     <string name="gross_salary">Gross Salary</string>
     <string name="basic_salary">Basic Salary</string>
@@ -18,4 +18,5 @@
 
     <string name="currency_format">GHS %1$,.2f</string>
     <string name="total_pension_amount">Total Pension Amount</string>
+    <string name="input_notice_text">Provide values for the fields below and tap \'Calculate\' to see potential salary breakdown</string>
 </resources>

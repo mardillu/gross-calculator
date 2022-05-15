@@ -8,6 +8,7 @@ import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.RootMatchers.isDialog
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
@@ -33,16 +34,11 @@ class MainActivityTest {
 
     @Test
     fun mainActivityTest() {
-        val linearLayout = onView(
-                allOf(withId(R.id.proceedBtn),
-                        childAtPosition(
-                                allOf(withId(R.id.included),
-                                        childAtPosition(
-                                                withClassName(`is`("android.widget.RelativeLayout")),
-                                                1)),
-                                0),
-                        isDisplayed()))
-        linearLayout.perform(click())
+        var button = onView(withId(R.id.proceedBtn)).check(matches(isDisplayed()))
+        onView(withId(R.id.proceedBtn)).check(matches(withText(R.string.calculate)))
+        button.perform(forceClick())
+
+        onView(withId(R.id.notice_text)).check(matches(withText(R.string.input_notice_text)))
 
         val netEdit = onView(withId(R.id.net_value_edit)).check(matches(isDisplayed()))
         onView(withId(R.id.net_value_edit)).check(matches(withHint("0.00")))
@@ -59,16 +55,9 @@ class MainActivityTest {
 
         lunchAllow.perform(pressImeActionButton())
 
-        val linearLayout2 = onView(
-                allOf(withId(R.id.proceedBtn),
-                        childAtPosition(
-                                allOf(withId(R.id.included),
-                                        childAtPosition(
-                                                withClassName(`is`("android.widget.RelativeLayout")),
-                                                1)),
-                                0),
-                        isDisplayed()))
-        linearLayout2.perform(forceClick())
+        button = onView(withId(R.id.proceedBtn)).check(matches(isDisplayed()))
+        onView(withId(R.id.proceedBtn)).check(matches(withText(R.string.calculate)))
+        button.perform(forceClick())
 
         val transAllow = onView(withId(R.id.transportation_allow_edit)).check(matches(isDisplayed()))
         onView(withId(R.id.transportation_allow_edit)).check(matches(withHint("0.00")))
@@ -84,18 +73,194 @@ class MainActivityTest {
 
         houseAllow.perform(pressImeActionButton())
 
-        val linearLayout3 = onView(
-                allOf(withId(R.id.proceedBtn),
-                        childAtPosition(
-                                allOf(withId(R.id.included),
-                                        childAtPosition(
-                                                withClassName(`is`("android.widget.RelativeLayout")),
-                                                1)),
-                                0),
-                        isDisplayed()))
-        linearLayout3.perform(forceClick())
+        button = onView(withId(R.id.proceedBtn)).check(matches(isDisplayed()))
+        onView(withId(R.id.proceedBtn)).check(matches(withText(R.string.calculate)))
+        button.perform(forceClick())
 
-        //bottom sheet
+        onView(withText(R.string.salary_breakdown))
+            .inRoot(isDialog())
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun `Clicking_the_Calculate_button_displays_bottom_sheet`(){
+        val netEdit = onView(withId(R.id.net_value_edit)).check(matches(isDisplayed()))
+        netEdit.perform(scrollTo(), replaceText("7223"), closeSoftKeyboard())
+
+        val lunchAllow = onView(withId(R.id.lunch_allow_edit)).check(matches(isDisplayed()))
+        lunchAllow.perform(scrollTo(), replaceText("2215"), closeSoftKeyboard())
+
+        val transAllow = onView(withId(R.id.transportation_allow_edit)).check(matches(isDisplayed()))
+        transAllow.perform(scrollTo(), replaceText("2215"), closeSoftKeyboard())
+
+        val houseAllow = onView(withId(R.id.housing_allow_edit)).check(matches(isDisplayed()))
+        houseAllow.perform(scrollTo(), replaceText("2215"), closeSoftKeyboard())
+
+        houseAllow.perform(pressImeActionButton())
+
+        val button = onView(withId(R.id.proceedBtn)).check(matches(isDisplayed()))
+        onView(withId(R.id.proceedBtn)).check(matches(withText(R.string.calculate)))
+        button.perform(forceClick())
+
+        onView(withText(R.string.salary_breakdown))
+            .inRoot(isDialog())
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun `Clicking_the_Calculate_button_displays_bottom_sheet_with_correct_values`(){
+        val netEdit = onView(withId(R.id.net_value_edit)).check(matches(isDisplayed()))
+        netEdit.perform(scrollTo(), replaceText("7223"), closeSoftKeyboard())
+
+        val lunchAllow = onView(withId(R.id.lunch_allow_edit)).check(matches(isDisplayed()))
+        lunchAllow.perform(scrollTo(), replaceText("2215"), closeSoftKeyboard())
+
+        val transAllow = onView(withId(R.id.transportation_allow_edit)).check(matches(isDisplayed()))
+        transAllow.perform(scrollTo(), replaceText("2215"), closeSoftKeyboard())
+
+        val houseAllow = onView(withId(R.id.housing_allow_edit)).check(matches(isDisplayed()))
+        houseAllow.perform(scrollTo(), replaceText("2215"), closeSoftKeyboard())
+
+        houseAllow.perform(pressImeActionButton())
+
+        val button = onView(withId(R.id.proceedBtn)).check(matches(isDisplayed()))
+        onView(withId(R.id.proceedBtn)).check(matches(withText(R.string.calculate)))
+        button.perform(forceClick())
+
+        onView(withText(R.string.salary_breakdown))
+            .inRoot(isDialog())
+            .check(matches(isDisplayed()))
+
+
+        onView(withId(R.id.net_salary_text)).check(matches(isDisplayed()))
+        onView(withId(R.id.net_salary_text)).check(matches(withText("GHS 7,223.00")))
+
+        onView(withId(R.id.net_salary_text)).check(matches(isDisplayed()))
+        onView(withId(R.id.net_salary_text)).check(matches(withText("GHS 7,223.00")))
+
+        onView(withId(R.id.gross_salary_text)).check(matches(isDisplayed()))
+        onView(withId(R.id.gross_salary_text)).check(matches(withText("GHS 10,978.80")))
+
+        onView(withId(R.id.basic_salary_text)).check(matches(isDisplayed()))
+        onView(withId(R.id.basic_salary_text)).check(matches(withText("GHS 4,333.80")))
+
+        onView(withId(R.id.employer_pension_text)).check(matches(isDisplayed()))
+        onView(withId(R.id.employer_pension_text)).check(matches(withText("GHS 1,976.18")))
+
+        onView(withId(R.id.employee_pension_text)).check(matches(isDisplayed()))
+        onView(withId(R.id.employee_pension_text)).check(matches(withText("GHS 1,152.77")))
+
+        onView(withId(R.id.total_pension_text)).check(matches(isDisplayed()))
+        onView(withId(R.id.total_pension_text)).check(matches(withText("GHS 3,128.96")))
+
+        onView(withId(R.id.paye_text)).check(matches(isDisplayed()))
+        onView(withId(R.id.paye_text)).check(matches(withText("GHS 543.50")))
+
+        onView(withId(R.id.total_allowance_text)).check(matches(isDisplayed()))
+        onView(withId(R.id.total_allowance_text)).check(matches(withText("GHS 6,645.00")))
+
+
+        val img = onView(withId(R.id.close)).check(matches(isDisplayed()))
+        img.perform(forceClick())
+    }
+
+    @Test
+    fun `clicking_close_button_on_bottom_sheet_dismisses_the_bottom_sheet`(){
+        val netEdit = onView(withId(R.id.net_value_edit)).check(matches(isDisplayed()))
+        netEdit.perform(scrollTo(), replaceText("7223"), closeSoftKeyboard())
+
+        val lunchAllow = onView(withId(R.id.lunch_allow_edit)).check(matches(isDisplayed()))
+        lunchAllow.perform(scrollTo(), replaceText("2215"), closeSoftKeyboard())
+
+        val transAllow = onView(withId(R.id.transportation_allow_edit)).check(matches(isDisplayed()))
+        transAllow.perform(scrollTo(), replaceText("2215"), closeSoftKeyboard())
+
+        val houseAllow = onView(withId(R.id.housing_allow_edit)).check(matches(isDisplayed()))
+        houseAllow.perform(scrollTo(), replaceText("2215"), closeSoftKeyboard())
+
+        houseAllow.perform(pressImeActionButton())
+
+        val button = onView(withId(R.id.proceedBtn)).check(matches(isDisplayed()))
+        onView(withId(R.id.proceedBtn)).check(matches(withText(R.string.calculate)))
+        button.perform(forceClick())
+
+        onView(withText(R.string.salary_breakdown))
+            .inRoot(isDialog())
+            .check(matches(isDisplayed()))
+
+
+        onView(withId(R.id.net_salary_text)).check(matches(isDisplayed()))
+        onView(withId(R.id.net_salary_text)).check(matches(withText("GHS 7,223.00")))
+
+        onView(withId(R.id.net_salary_text)).check(matches(isDisplayed()))
+        onView(withId(R.id.net_salary_text)).check(matches(withText("GHS 7,223.00")))
+
+        onView(withId(R.id.gross_salary_text)).check(matches(isDisplayed()))
+        onView(withId(R.id.gross_salary_text)).check(matches(withText("GHS 10,978.80")))
+
+        onView(withId(R.id.basic_salary_text)).check(matches(isDisplayed()))
+        onView(withId(R.id.basic_salary_text)).check(matches(withText("GHS 4,333.80")))
+
+        onView(withId(R.id.employer_pension_text)).check(matches(isDisplayed()))
+        onView(withId(R.id.employer_pension_text)).check(matches(withText("GHS 1,976.18")))
+
+        onView(withId(R.id.employee_pension_text)).check(matches(isDisplayed()))
+        onView(withId(R.id.employee_pension_text)).check(matches(withText("GHS 1,152.77")))
+
+        onView(withId(R.id.total_pension_text)).check(matches(isDisplayed()))
+        onView(withId(R.id.total_pension_text)).check(matches(withText("GHS 3,128.96")))
+
+        onView(withId(R.id.paye_text)).check(matches(isDisplayed()))
+        onView(withId(R.id.paye_text)).check(matches(withText("GHS 543.50")))
+
+        onView(withId(R.id.total_allowance_text)).check(matches(isDisplayed()))
+        onView(withId(R.id.total_allowance_text)).check(matches(withText("GHS 6,645.00")))
+
+
+        val img = onView(withId(R.id.close)).check(matches(isDisplayed()))
+        img.perform(forceClick())
+
+        onView(isRoot()).inRoot(isDialog()).noActivity()
+    }
+
+    private fun childAtPosition(
+            parentMatcher: Matcher<View>, position: Int): Matcher<View> {
+
+        return object : TypeSafeMatcher<View>() {
+            override fun describeTo(description: Description) {
+                description.appendText("Child at position $position in parent ")
+                parentMatcher.describeTo(description)
+            }
+
+            public override fun matchesSafely(view: View): Boolean {
+                val parent = view.parent
+                return parent is ViewGroup && parentMatcher.matches(parent)
+                        && view == parent.getChildAt(position)
+            }
+        }
+    }
+
+    private fun forceClick(): ViewAction {
+        return object : ViewAction {
+            override fun getConstraints(): Matcher<View> {
+                return AllOf.allOf(isClickable(), isEnabled(), isDisplayed())
+            }
+
+            override fun getDescription(): String {
+                return "force click"
+            }
+
+            override fun perform(uiController: UiController, view: View) {
+                view.performClick() // perform click without checking view coordinates.
+                uiController.loopMainThreadUntilIdle()
+            }
+        }
+    }
+}
+
+
+
+//bottom sheet
 //        val textView8 = onView(
 //                allOf(withId(R.id.net_salary_text), withText("GHS 7,223.00"),
 //                        withParent(withParent(IsInstanceOf.instanceOf(android.widget.RelativeLayout::class.java))),
@@ -144,39 +309,3 @@ class MainActivityTest {
 //                                withParent(withId(R.id.included)))),
 //                        isDisplayed()))
 //        textView9.check(matches(withText("Calculate")))
-    }
-
-    private fun childAtPosition(
-            parentMatcher: Matcher<View>, position: Int): Matcher<View> {
-
-        return object : TypeSafeMatcher<View>() {
-            override fun describeTo(description: Description) {
-                description.appendText("Child at position $position in parent ")
-                parentMatcher.describeTo(description)
-            }
-
-            public override fun matchesSafely(view: View): Boolean {
-                val parent = view.parent
-                return parent is ViewGroup && parentMatcher.matches(parent)
-                        && view == parent.getChildAt(position)
-            }
-        }
-    }
-
-    private fun forceClick(): ViewAction {
-        return object : ViewAction {
-            override fun getConstraints(): Matcher<View> {
-                return AllOf.allOf(isClickable(), isEnabled(), isDisplayed())
-            }
-
-            override fun getDescription(): String {
-                return "force click"
-            }
-
-            override fun perform(uiController: UiController, view: View) {
-                view.performClick() // perform click without checking view coordinates.
-                uiController.loopMainThreadUntilIdle()
-            }
-        }
-    }
-}

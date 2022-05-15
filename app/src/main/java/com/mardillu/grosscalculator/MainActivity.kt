@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         viewModel._income.value = Income()
 
         binding.apply {
-            included.proceedBtn.setOnClickListener {
+            proceedBtn.setOnClickListener {
                 if (!viewModel.isInputAmountValid(netValueEdit.text.toString())){
                     netValueEdit.error = getString(R.string.invalid_input)
                     return@setOnClickListener

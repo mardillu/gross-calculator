@@ -3,7 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/notice_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_info"
+        android:drawablePadding="20dp"
+        android:lineSpacingExtra="5dp"
+        android:layout_marginHorizontal="16dp"
+        android:padding="16dp"
+        android:text="@string/input_notice_text"
+        android:textColor="#667085"
+        android:textSize="14sp"
+        app:drawableStartCompat="@drawable/ic_icon_info"
+        android:layout_marginTop="16dp"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -12,6 +28,7 @@
         android:layout_margin="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_below="@+id/notice_text"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:scrollbars="none">
@@ -180,11 +197,12 @@
 
     </ScrollView>
 
-    <include
-        android:id="@+id/included"
-        layout="@layout/partial_primary_button"
+    <Button
+        android:id="@+id/proceedBtn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
+        android:text="@string/calculate"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="20dp" />
+        android:layout_marginBottom="16dp"
+        android:layout_marginHorizontal="16dp" />
 </RelativeLayout>
