@@ -1,14 +1,14 @@
 
 # gross-calculator
-A simple app to calculate potential salary breakdown based provided net salary and allowances.
+A simple app to calculate potential salary breakdown based on provided net salary and allowances.
 
 ## Assumption
- - basic salary is 60% of net salary
+ - Basic salary is 60% of net salary
  
  ### TL;DR; Install the App
 Download and install the debug apk [from here](gross-calculator.apk) to quickly test the app
 
- ## Install in Android Studio
+ ## Import into Android Studio
 The easiest way to import this project into Android studio is to use the native import option in AS
 #### On Android Studio:
 1. Select File >> New >> Project From Version Control...
